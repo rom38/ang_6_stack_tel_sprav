@@ -1,0 +1,78 @@
+<h2>Телефонный справочник</h2>
+<h1>
+    {{title}}
+</h1>
+
+<!--<h1>
+    <div *ngFor="let item of jsonn | async">
+        <p>{{item | json}}</p>
+        <p> {{item.item}}</p>
+    </div>
+</h1>-->
+<p> привет</p>
+<p> Количество записей {{dat_serv.numOfRec|async}}</p>
+<button (click)="increment()">Increment</button>
+<div><a href="#!/list"><i class="icon-list" title="Изменить"></i></a></div>
+<div class="form-group form-group-lg">
+    <input type="text" ng-model="search.text" ng-change="change()" class="form-control form-control-lg" placeholder="Поиск">
+</div>
+<p></p>
+<!--<div infinite-scroll='addMoreItems()' infinite-scroll-distance='3' infinite-scroll-disabled='data_busy'>-->
+<div>
+    <!--<div class="has-text-centered">
+        <pagination-controls (pageChange)="page = $event"></pagination-controls>
+    </div>-->
+    <div>maxSize = 5, rotate = true</div>
+    <ngb-pagination [collectionSize]="dat_serv.numOfRec|async" [(page)]="page" [maxSize]="7" [rotate]="true" [boundaryLinks]="false"
+        [pageSize]="pageSize">
+    </ngb-pagination>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <!--
+                        <th>№ п/п</th>
+                <th>Код</th>
+                -->
+                <th>Муниц. образование</th>
+                <!--
+                <th>Форма собств.</th>
+                -->
+                <th>Наименование учреждения</th>
+                <th>Должность</th>
+                <th>ФИО</th>
+                <th>Сотовый телефон</th>
+                <th>Рабочий телефон</th>
+                <!--
+                <th>Имя</th>
+                
+                <th>Сотовый телефон</th>
+                <th>Рабочий телефон</th>
+                
+                <th>Примечание</th>
+                -->
+                <th>
+                    <a class="glyphicon glyphicon-plus-sign" href="#/new"></a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of jsonn | async | paginate: { itemsPerPage: pageSize, currentPage: page };trackBy:identify">
+                <td>{{item.im_mo}}</td>
+                <!-- <td width=35% bo-text="project.value.f_sob+' '+project.value.im_uz"> </td>				-->
+                <td width=35%>{{item.f_sob}} {{item.im_uz}} </td>
+                <td>{{item.dolgn}}</td>
+                <!-- <td bo-text="project.value.fam+' '+ project.value.name+' '+ project.value.otch"></td>-->
+                <td>{{item.fio}}</td>
+                <td>{{item.sot_tlph}}</td>
+                <td>{{item.rab_tlph}}</td>
+                <td>
+                    <a href="#/edit/{{item._id}}"><i class="glyphicon glyphicon-pencil" title="Изменить"></i></a>
+                    <a bo-href="'#'" ng-click='copy_doc(project.id)' eat-click><i class="glyphicon glyphicon-book" title="Скопировать"></i></a>
+                    <!-- <button ng-click='copy_doc(project.id)'><i  class="icon-book" title="Скопировать"></i></button></a> -->
+                    <!-- <i class="icon-book" title="Скопировать" ng-click='copy_doc(project.id)'></i> -->
+                </td>
+            </tr>
+            <!-- <div style='clear: both;'></div> -->
+        </tbody>
+    </table>
+</div>
